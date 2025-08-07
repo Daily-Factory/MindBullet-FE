@@ -52,16 +52,12 @@ export default DailyLog;
 
 // styled-components 정의
 const Wrapper = styled.div`
-  // border: 2px solid red;
-
-  height: 88%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   padding: 12px;
-  padding-bottom: 25px;
 `;
+
 
 const LogListWrapper = styled.div`
   display: flex;
@@ -86,4 +82,14 @@ const AddButton = styled.button`
   margin-bottom: 20px;
   color: white;
   cursor: pointer;
+`;
+
+const LogBox = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  width: 100%;
 `;

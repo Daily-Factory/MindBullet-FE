@@ -6,13 +6,11 @@ import BulletSelector from "../components/BulletSelector";
 import checkmark from "../assets/checkmark.png";
 import EditDeleteButtons from "../components/EditDeleteButton.jsx";
 
-
 const LogDetail = () => {
   const { id } = useParams();
   const isEdit = !!id;
   const navigate = useNavigate();
 
-  //상태값정의
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedSymbol, setSelectedSymbol] = useState("");
@@ -26,6 +24,7 @@ const LogDetail = () => {
       const dummyLogs = [
         { id: "1", title: "예시 제목1", content: "예시 내용1", selectedSymbol: "★" },
         { id: "2", title: "예시 제목2", content: "예시 내용2", selectedSymbol: "✔" },
+        { id: "3", title: "예시 제목3", content: "예시 내용3", selectedSymbol: "✔" }
       ];
 
       const logToEdit = dummyLogs.find((log) => log.id === id);
@@ -80,7 +79,6 @@ const LogDetail = () => {
     const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
     if (!confirmDelete) return;
 
-    // 실제 삭제 처리 API 등 연결 필요
     alert("삭제되었습니다.");
     navigate("/daily-log");
   };
@@ -129,18 +127,25 @@ const LogDetail = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
+            </TextAreaWrapper>
+            
+
+          {/* 작성일 때만 저장 버튼 */}
+          {!isEdit && (
             <SubmitButton onClick={handleFirstSubmit}>
               <img src={checkmark} alt="저장" width="20" height="20" />
             </SubmitButton>
-          </TextAreaWrapper>
-          {isEdit && (
-            <EditDeleteContainer>
-            <EditDeleteButtons
-              onEdit={() => openModal("edit")}
-              onDelete={handleDelete}
-            />
-            </EditDeleteContainer>
           )}
+
+          {/* 수정일 때만 수정/삭제 버튼 */}
+          {isEdit && (
+          <EditDeleteContainer>
+          <EditDeleteButtons
+          onEdit={() => openModal("edit")}
+          onDelete={handleDelete}
+         />
+       </EditDeleteContainer> 
+        )}
         </Wrapper>
       </AppLayout>
     </>
@@ -149,16 +154,17 @@ const LogDetail = () => {
 
 export default LogDetail;
 
+
 const Wrapper = styled.div`
-  position: relative;
   padding: 20px;
   width: 100%;
-  min-height: 600px
-  max-width: 400px
-  
+  max-width: 400px;
+  min-height: 600px; 
   background-color: white;
-  margin: 0 auto;
+  margin: 40px  auto;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Input = styled.input`
@@ -171,14 +177,13 @@ const Input = styled.input`
 
 const TextAreaWrapper = styled.div`
   position: relative;
-  height: 80%;
-  margin-bottom: 40px;
+  min-height: 200px;
+  margin-bottom: 20px;
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  height: 100%;
-  padding: 10px;
+  height: 600px;
   font-size: 16px;
   resize: none;
   border: none;
@@ -287,9 +292,8 @@ const CancelButton = styled.button`
 `;
 
 const EditDeleteContainer = styled.div`
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
   display: flex;
-  gap: 8px
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
 `;
