@@ -35,7 +35,7 @@ const LogDetail = () => {
       }
     }
   }, [id, isEdit]);
-
+//
   const handleFirstSubmit = () => {
     if (!title || !content || !selectedSymbol) {
       alert("모두 입력했는지 확인해주세요!");
