@@ -1,0 +1,123 @@
+/* 라이브러리에서 지정한 클래스명 */
+/* 캘린더 전체 부분 */
+.react-datepicker {
+    font-size: 14px;
+    border: 2px solid var(--secondary-color);    
+}
+
+/* 캘린더 헤더 부분 */
+.react-datepicker__header {
+    background-color: var(--white-color);
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* 요일 부분 */
+.react-datepicker__day-names {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-datepicker__day-name {
+    width: 30px;
+    color: var(--ligt-text-color);
+    font-weight: 600;
+}
+
+/* 이전 또는 다음 달에 해당하는 날짜는 표시되지 않도록 */
+.react-datepicker__day--outside-month {
+    cursor: default;
+    visibility: hidden;
+}
+
+/* 달력팝업이 어떤 input 필드에서 열렸는지 알려주는 삼각형 화살표 */
+.react-datepicker__triangle { 
+    display: none;
+}
+
+
+
+
+
+
+
+/* 사용자 지정 클래스명 */
+/* 캘린더 헤더 */
+.customHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white-color);
+    height: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0 12px 0 24px;
+}
+
+.customHeaderYear {
+    background-color: none;
+    color: var(--text-color);
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding-right: 5px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', serif;
+}
+
+.customHeaderMonth {
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.monthBtn {
+    width: 28px;
+    height: 28px;
+    background-color: var(--white-color);
+    border: none;
+    padding: 0px;
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
+.monthBtn img {
+    width: 13px;
+}
+    
+.monthBtn:hover {
+    background-color: var(--secondary-color);
+}
+
+.monthBtn:disabled img {
+    opacity: 0.3;
+}
+
+.monthBtn:disabled:hover {
+    background-color: transparent;
+    cursor: default;
+}
+
+/* 캘린더 헤더 아래(날짜) 부분 */
+.calendarWrapper {
+    background-color: var(--white-color);
+}
+
+.selectedDay,
+.unselectedDay {
+    color: var(--text-color);
+    padding: 1px 1px 0 0;
+    width: 30px;
+    height: 30px;
+}
+
+.selectedDay {
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+}
+
+.selectedDay{
+    border-radius: 50%;
+}
