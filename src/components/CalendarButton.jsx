@@ -10,6 +10,7 @@ import "./../styles/colors.css";
 
 const CalendarButton = () => {
   const calendarRef = useRef(null);
+
   const { selectedDate, setSelectedDate, isCalendarOpen, openCalendar, closeCalendar } = useLogContext();
   
   // 날짜 버튼을 클릭시
@@ -59,13 +60,20 @@ const CalendarButton = () => {
   }, [isCalendarOpen]);
   
   return (
-    <div>
+    <Wrapper>
       {/* 달력 팝업 */}
-      <div ref={calendarRef}>
+      {isCalendarOpen && (
+        <CalendarWrapper ref={calendarRef}>
+          <Calendar />
+        </CalendarWrapper>
+      )}
+
+
+      {/* <div ref={calendarRef}>
         {isCalendarOpen && (
           <Calendar />
         )}
-      </div>
+      </div> */}
 
       {/* 날짜 이동 버튼 집합 */}
       <ButtonWrapper>
@@ -90,14 +98,33 @@ const CalendarButton = () => {
           <img src={afterIcon} alt="이후" />
         </button>
       </ButtonWrapper>
-    </div>
+    </Wrapper>
   );
 };
 
 export default CalendarButton;
   
 // 스타일링
+const Wrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const CalendarWrapper = styled.div`
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 12px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
+  align-items: center;
   margin: 10px;
+
+
 `;
