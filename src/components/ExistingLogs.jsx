@@ -1,21 +1,26 @@
 import LogItem from "./LogItem";
+import { useLogContext } from "../context/LogContext";
 
 import styled from "styled-components";
 import "./../styles/colors.css";
 
 const ExistingLog = () => {
+    const { logs } = useLogContext();
+
+    const recentLogs = logs?.slice(-3).reverse() ?? [];
+
     return (
-        <div>
+        <LogListWrapper>
             <LogList>
-                <LogItem />
-                <LogItem />
-                <LogItem />
+                {recentLogs.map((log) => (
+                    <LogItem key={log.id} type={log.type} title={log.title} />
+                ))}
             </LogList>
 
             <ExtraLogButton>
                 더 많은 로그가 보고 싶으신가요?
             </ExtraLogButton>
-        </div>
+        </LogListWrapper>
 
     );
 };
@@ -23,9 +28,15 @@ const ExistingLog = () => {
 export default ExistingLog;
 
 // 스타일링
+const LogListWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`;
+
 const LogList = styled.div`
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
 `;
 
 const ExtraLogButton = styled.button`
@@ -35,6 +46,7 @@ const ExtraLogButton = styled.button`
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    margin: 0 auto;
 
     &:hover {
         background-color: var(--header-color);

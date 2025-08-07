@@ -1,45 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { useLogContext } from "../context/LogContext.jsx";
+import { getYear, getMonth, getDate, getDay } from "date-fns";
 import AppLayout from "./../components/AppLayout.jsx";
 import Calendar from "../components/Calendar.jsx";
 import MainPageLogList from "../components/MainPageLogList.jsx";
 import ExistingLogs from "./../components/ExistingLogs.jsx";
 import NoLogs from "./../components/NoLogs.jsx"
+import Header from "../components/Header.jsx";
 
 import styled from "styled-components";
 import "./../styles/colors.css";
 
 const Main = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const isLogs = false; // 로그 존재하는지 반환하는 로직 짤 것!
+    const { selectedDate, setSelectedDate, boardId } = useLogContext();
+    const [isLogs, setIsLogs] = useState(false); // 로그 존재하는지 반환하는 로직 짤 것!
 
-    useEffect(() => {
-        console.log("선택된 날짜", selectedDate);
-    }, [selectedDate]);
 
     return (
         <AppLayout>
-            <CalendarWrapper>
-                <Calendar 
-                    selectedDate={selectedDate}
-                    setSelectedDate={setSelectedDate}
-                />
-            </CalendarWrapper>
+            <Header/>
+            <MainWrapper>
+                <CalendarWrapper>
+                    <Calendar />
+                </CalendarWrapper>
 
-            <MainPageLogList
-                selectedDate={selectedDate} 
-            >
-                {isLogs 
-                    ? <ExistingLogs />
-                    : <NoLogs />
-                }
-            </MainPageLogList>
                 
-
-            {/* <CalendarButton 
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-            /> */}
+                <MainPageLogList>
+                    {boardId 
+                        ? <ExistingLogs />
+                        : <NoLogs />
+                    }
+                </MainPageLogList>
+            </MainWrapper>
         </AppLayout>
     );
 }
@@ -52,3 +44,14 @@ const CalendarWrapper = styled.div`
     height: 320px;
     margin-top: 20px;
 `;
+
+const MainWrapper = styled.div`
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 25px;
+
+`;
+

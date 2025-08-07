@@ -6,9 +6,8 @@ const AppLayout = ({ children }) => {
   return (
     <AppWrapper>
       <Content>
-        <Header/>
         {children}
-        </Content>
+      </Content>
     </AppWrapper>
   );
 };
@@ -32,11 +31,12 @@ const Content = styled.div`
   width: 100%;
   height: 100%;
   max-height: 800px;
+  min-height: 550px;
   max-width: 360px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
-  align-items: center;
+  // align-items: center;
 `;

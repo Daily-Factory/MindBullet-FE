@@ -4,14 +4,16 @@ import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import { getYear, getMonth, isSameDay } from "date-fns";
-
+import { useLogContext } from "../context/LogContext";
 import "./../styles/Calendar.css";
 import "./../styles/colors.css";
 import beforeIcon from "./../assets/BeforeIcon.png";
 import afterIcon from "./../assets/AfterIcon.png";
 
 
-const Calendar = ({ selectedDate, setSelectedDate, closeCalendar }) => {  
+const Calendar = () => {  
+  const { selectedDate, setSelectedDate, closeCalendar } = useLogContext();
+
   const years = Array.from({ length: getYear(new Date()) + 1 - 2000 }, (_, i) => getYear(new Date()) - i);
   const months = [
     "January",
@@ -32,7 +34,7 @@ const Calendar = ({ selectedDate, setSelectedDate, closeCalendar }) => {
     <DatePicker
       selected={selectedDate}
       onChange={(date) => {
-        setSelectedDate(date)
+        setSelectedDate(date);
         closeCalendar(); // 날짜 선택시 캘린더 닫기
       }}
       minDate={new Date('2000-01-01')} // minDate 이전 날짜 선택 불가
