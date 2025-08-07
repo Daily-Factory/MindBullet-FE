@@ -2,13 +2,20 @@
 
 import { useState } from "react";
 import styled from "styled-components";
+import CompletedIcon from "../assets/CompletedIcon.png"
+import JoyIcon from "../assets/JoyIcon.png"
+import NoteIcon from "../assets/NoteIcon.png"
+import PriorityIcon from "../assets/PriorityIcon.png"
+import TaskIcon from "../assets/TaskIcon.png"
+
+
 
 const icons = [
-  { src: "/assets/icons/normal.png", label: "할 일" },
-  { src: "/assets/icons/done.png", label: "완료한 일" },
-  { src: "/assets/icons/memo.png", label: "메모" },
-  { src: "/assets/icons/liked.png", label: "좋았던 일" },
-  { src: "/assets/icons/important.png", label: "중요" },
+  { src: TaskIcon, label: "할 일" },
+  { src: CompletedIcon, label: "완료한 일" },
+  { src: NoteIcon, label: "메모" },
+  { src: JoyIcon, label: "좋았던 일" },
+  { src: PriorityIcon, label: "중요" },
 ];
 
 const BulletSelector = ({selected, setSelected}) => {
