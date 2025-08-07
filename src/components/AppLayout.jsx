@@ -1,9 +1,14 @@
 import styled from "styled-components";
+// header 부분 들어가야할 거 같아서 추가했습니당
+import Header from "./Header"; 
 
 const AppLayout = ({ children }) => {
   return (
     <AppWrapper>
-      <Content>{children}</Content>
+      <Content>
+        <Header/>
+        {children}
+        </Content>
     </AppWrapper>
   );
 };
