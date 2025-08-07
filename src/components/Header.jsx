@@ -15,6 +15,7 @@ const HeaderWrapper = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
     
     width:100%;
     height: 68px;

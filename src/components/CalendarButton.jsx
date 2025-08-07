@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import Calendar from "./Calendar";
 import { format, subDays, addDays } from "date-fns";
-
+import { useLogContext } from "../context/LogContext";
 import beforeIcon from "./../assets/BeforeIcon.png";
 import afterIcon from "./../assets/AfterIcon.png";
+import styled from "styled-components";
 import "./../styles/CalendarButton.css";
 import "./../styles/colors.css";
 
-const CalendarButton = ({ selectedDate, setSelectedDate }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const CalendarButton = () => {
   const calendarRef = useRef(null);
-
+  const { selectedDate, setSelectedDate, isCalendarOpen, openCalendar, closeCalendar } = useLogContext();
+  
   // 날짜 버튼을 클릭시
   const handleClick = (e) => {
     e.preventDefault();
-    setIsOpen(!isOpen);
+    isCalendarOpen ? closeCalendar() : openCalendar();
   };
 
   // 하루 전 날짜로 이동
@@ -44,25 +45,30 @@ const CalendarButton = ({ selectedDate, setSelectedDate }) => {
         calendarRef.current && 
         !calendarRef.current.contains(e.target)
       ) {
-        setIsOpen(false);
+        closeCalendar();
       }
     };
 
-    if(isOpen) {
+    if(isCalendarOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-    }
-    else {
-      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isCalendarOpen]);
   
   return (
     <div>
-      <div className="buttonWrapper">
+      {/* 달력 팝업 */}
+      <div ref={calendarRef}>
+        {isCalendarOpen && (
+          <Calendar />
+        )}
+      </div>
+
+      {/* 날짜 이동 버튼 집합 */}
+      <ButtonWrapper>
         <button 
           className="beforeButton"
           onClick={handleBefore}
@@ -83,23 +89,15 @@ const CalendarButton = ({ selectedDate, setSelectedDate }) => {
         >
           <img src={afterIcon} alt="이후" />
         </button>
-      </div>
-
-      <div ref={calendarRef}>
-        {isOpen && (
-          <Calendar 
-            selectedDate={selectedDate} 
-            setSelectedDate={setSelectedDate} 
-            closeCalendar={() => setIsOpen(false)}
-          />
-        )}
-      </div>
+      </ButtonWrapper>
     </div>
   );
 };
 
 export default CalendarButton;
-
-
-
   
+// 스타일링
+const ButtonWrapper = styled.div`
+  display: flex;
+  margin: 10px;
+`;

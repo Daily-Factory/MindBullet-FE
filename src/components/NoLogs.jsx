@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import "./../styles/colors.css";
+import { useNavigate } from "react-router-dom";
 
 const NoLogs = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/log-detail")
+    };
+
     return (
         <NoLogWrapper>
-            <NoLogText>
+            <NoLogText onClick={handleClick}>
                 로그가 없습니다.
                 <br/>
                 로그를 추가하시겠습니까?
@@ -28,6 +35,7 @@ const NoLogWrapper = styled.div`
 const NoLogText = styled.p`
     font-size: 20px;
     color: var(--text-color);
+    cursor: pointer;
 
     &:hover {
         text-decoration: underline;
