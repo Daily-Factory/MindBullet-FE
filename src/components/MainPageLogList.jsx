@@ -1,11 +1,13 @@
 import LogItem from "../components/LogItem.jsx";
-
+import { useLogContext } from "../context/LogContext";
 import { format } from "date-fns";
 
 import styled from "styled-components";
 import "./../styles/colors.css";
 
-const MainPageLogList = ({ selectedDate, children }) => {
+const MainPageLogList = ({ children }) => {
+    const { selectedDate } = useLogContext();
+    
     return (
         <LogsWrapper>
             <DateText>
@@ -21,17 +23,25 @@ export default MainPageLogList;
 
 
 const LogsWrapper = styled.div`
+    // border: 2px solid red;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
+
+    // justify-content: center;
+    align-items: center;
+    min-height: 90px;
     width: 90%;
     min-width: 260px;
-    height: 360px;
-    margin: 20px 0 30px 0;
+    
+    padding: 20px 0;
+    margin: 20px 0 10px 0;
     background-color: var(--primary-color);
     border-radius: 10px;
+
+    overflow-y: auto;
+
 `;
 
 const DateText = styled.p`
@@ -40,6 +50,5 @@ const DateText = styled.p`
     margin: 10px;
     color: var(--text-color)
 `;
-
 
 
