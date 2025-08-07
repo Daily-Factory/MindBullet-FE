@@ -1,13 +1,21 @@
+import LogItem from "./LogItem";
+import { useLogContext } from "../context/LogContext.jsx";
+
 import styled from "styled-components";
 import "./../styles/colors.css";
 
 const LogList = () => {
+    const { logs } = useLogContext();
+
     return (
         <LogBoxWrapper>
-            {dummyLogs.map((log) => (
-            <LogBox key={log.id} onClick={() => console.log(`${log.id}번 로그 클릭됨`)}>
-              <div style={{ fontWeight: "bold" }}>{log.title}</div>
-            </LogBox>
+            {logs.map((log) => (
+              <LogItem
+                key={log.id}
+                id={log.id}
+                type={log.type}
+                title={log.title}
+              />
           ))}
         </LogBoxWrapper>
     );
