@@ -13,9 +13,10 @@ function App() {
     <LogProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={ <Main /> } />
-          <Route path="/log-detail" element={ <LogDetail /> } />
-          <Route path="/daily-log" element={ <DailyLog /> } />
+          <Route path="/" element={<Main />} />
+          <Route path="/daily-log" element={<DailyLog />} />
+          <Route path="/log-detail" element={<LogDetail />} /> {/* 생성 */}
+          <Route path="/log-detail/:id" element={<LogDetail />} /> {/* 수정/삭제 */}
         </Routes>
       </BrowserRouter>
     </LogProvider>

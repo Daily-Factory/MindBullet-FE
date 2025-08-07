@@ -18,22 +18,33 @@ import "./../styles/colors.css";
 
 const DailyLog = () => {
   const navigate = useNavigate();
-  
+
+  // 더미 데이터 (테스트용)
+  const dummyLogs = [
+    { id: 1, title: "제목1" },
+    { id: 2, title: "제목2" },
+    { id: 3, title: "제목3" },
+  ];
+
   return (
     <AppLayout>
       <Header />
       <Wrapper>
-        <LogListWrapper>
-          <LogList />
+        <h1>데일리 로그 목록 페이지</h1>
+        {dummyLogs.map((log) => (
+          <LogBox key={log.id} onClick={() => navigate(`/log-detail/${log.id}`)}>
+            <div style={{ fontWeight: "bold" }}>{log.title}</div>
+          </LogBox>
+        ))}
 
-          <AddButton onClick={() => navigate("/log-detail")}>+</AddButton>
-        </LogListWrapper>
+        <AddButton onClick={() => navigate("/log-detail")}>+</AddButton>
 
         <CalendarButton />
       </Wrapper>
     </AppLayout>
   );
 };
+
 
 export default DailyLog;
 

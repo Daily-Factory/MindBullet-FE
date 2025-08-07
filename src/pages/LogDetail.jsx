@@ -1,21 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AppLayout from "./../components/AppLayout.jsx";
 import BulletSelector from "../components/BulletSelector";
 import checkmark from "../assets/checkmark.png";
-
+import EditDeleteButtons from "../components/EditDeleteButton.jsx";
 
 
 const LogDetail = () => {
+  const { id } = useParams();
+  const isEdit = !!id;
+  const navigate = useNavigate();
+
+  //상태값정의
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedSymbol, setSelectedSymbol] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
   const CORRECT_PASSWORD = "1234";
+
+  useEffect(() => {
+    if (isEdit) {
+      const dummyLogs = [
+        { id: "1", title: "예시 제목1", content: "예시 내용1", selectedSymbol: "★" },
+        { id: "2", title: "예시 제목2", content: "예시 내용2", selectedSymbol: "✔" },
+      ];
+
+      const logToEdit = dummyLogs.find((log) => log.id === id);
+      if (logToEdit) {
+        setTitle(logToEdit.title);
+        setContent(logToEdit.content);
+        setSelectedSymbol(logToEdit.selectedSymbol);
+      }
+    }
+  }, [id, isEdit]);
 
   const handleFirstSubmit = () => {
     if (!title || !content || !selectedSymbol) {
@@ -50,6 +70,21 @@ const LogDetail = () => {
     navigate("/daily-log");
   };
 
+  const openModal = (type) => {
+    if (type === "edit") {
+      setShowPasswordModal(true);
+    }
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    // 실제 삭제 처리 API 등 연결 필요
+    alert("삭제되었습니다.");
+    navigate("/daily-log");
+  };
+
   return (
     <>
       {showPasswordModal && (
@@ -76,12 +111,10 @@ const LogDetail = () => {
         <Wrapper>
           <PageHeader>
             <BackButton onClick={handleClose}>×</BackButton>
-            <PageTitle>상세 페이지 - 작성</PageTitle>
+            <PageTitle>{isEdit ? "상세 페이지 - 수정" : "상세 페이지 - 작성"}</PageTitle>
           </PageHeader>
 
           <BulletSelector selected={selectedSymbol} setSelected={setSelectedSymbol} />
-
-          {/* 선택한 날짜 */} 날짜
 
           <Input
             type="text"
@@ -100,6 +133,14 @@ const LogDetail = () => {
               <img src={checkmark} alt="저장" width="20" height="20" />
             </SubmitButton>
           </TextAreaWrapper>
+          {isEdit && (
+            <EditDeleteContainer>
+            <EditDeleteButtons
+              onEdit={() => openModal("edit")}
+              onDelete={handleDelete}
+            />
+            </EditDeleteContainer>
+          )}
         </Wrapper>
       </AppLayout>
     </>
@@ -109,10 +150,12 @@ const LogDetail = () => {
 export default LogDetail;
 
 const Wrapper = styled.div`
+  position: relative;
   padding: 20px;
   width: 100%;
-  height: 100%;
-  max-width: 400px;
+  min-height: 600px
+  max-width: 400px
+  
   background-color: white;
   margin: 0 auto;
   border-radius: 8px;
@@ -170,7 +213,6 @@ const BackButton = styled.button`
   font-size: 20px;
   color: #888888;
   cursor: pointer;
-  margin: 0;
 
   &:hover {
     color: #555;
@@ -244,3 +286,10 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
+const EditDeleteContainer = styled.div`
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px
+`;
