@@ -12,8 +12,8 @@ const NoLogs = () => {
     const month = getMonth(selectedDate) + 1;
     const day = getDate(selectedDate);
     
-    // const SERVER_BASE_URL = A`http://mindbullet.kro.kr`;
-    const SERVER_BASE_URL = `http://localhost:8080`;
+    const SERVER_BASE_URL = `http://mindbullet.kro.kr`;
+    // const SERVER_BASE_URL = `http://localhost:8080`;
 
     const postBoardUrl = `${SERVER_BASE_URL}/board/${year}/${month}/${day}`;
 
