@@ -1,13 +1,19 @@
 import LogItem from "./LogItem";
 import { useLogContext } from "../context/LogContext";
-
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./../styles/colors.css";
 
 const ExistingLog = () => {
+    const navigate = useNavigate();
+
     const { logs } = useLogContext();
 
     const recentLogs = logs?.slice(-3).reverse() ?? [];
+
+    const handleClick = () => {
+        navigate("/daily-log")
+    }
 
     return (
         <LogListWrapper>
@@ -17,7 +23,7 @@ const ExistingLog = () => {
                 ))}
             </LogList>
 
-            <ExtraLogButton>
+            <ExtraLogButton onClick={handleClick}>
                 더 많은 로그가 보고 싶으신가요?
             </ExtraLogButton>
         </LogListWrapper>

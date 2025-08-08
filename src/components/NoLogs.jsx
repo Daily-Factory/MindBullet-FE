@@ -1,12 +1,33 @@
 import styled from "styled-components";
 import "./../styles/colors.css";
 import { useNavigate } from "react-router-dom";
+import { useLogContext } from "../context/LogContext.jsx";
+import { getYear, getMonth, getDate } from "date-fns";
+import axios from "axios";
 
 const NoLogs = () => {
     const navigate = useNavigate();
+    const { selectedDate } = useLogContext();
+    const year = getYear(selectedDate);
+    const month = getMonth(selectedDate) + 1;
+    const day = getDate(selectedDate);
+    
+    // const SERVER_BASE_URL = A`http://mindbullet.kro.kr`;
+    const SERVER_BASE_URL = `http://localhost:8080`;
 
-    const handleClick = () => {
-        navigate("/log-detail")
+    const postBoardUrl = `${SERVER_BASE_URL}/board/${year}/${month}/${day}`;
+
+
+    const handleClick = async() => {
+        try {
+            // 게시판 생성 api
+            await axios.post(postBoardUrl);
+            navigate("/log-detail"); // 성공시, 로그 생성 페이지로 이동
+        }
+        catch(error) {
+            console.log("게시판 생성 실패: ", error);
+            alert("로그 생성에 실패하였습니다.(게시판 생성 실패)");
+        }
     };
 
     return (
